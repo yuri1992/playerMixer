@@ -74,6 +74,19 @@
 					this._selectPlayer(obj)
 				}
 			},
+			sortPlayers: function(listOfSelectedPlayer) {
+				newlist = listOfSelectedPlayer
+				for (var i = 0; i < listOfSelectedPlayer.length; i++) {
+					for (var y = i; y< newlist.length; y++) {
+						if (listOfSelectedPlayer[i].skill > newlist[y].skill) {
+							tmp = newlist[y]
+							newlist[y] = newlist[i]
+							newlist[i] = tmp
+						}
+					}
+				}
+				return newlist
+			},
 			_selectPlayer :function(e) {
 				e.addClass('selected');
 			},
@@ -84,16 +97,65 @@
 				return parseInt(this.divObj.find('.selected').length)
 			},
 			_getSelectedPlayers: function() {
-				jQuery.each(this.divObj.find('.selected'),function() {
-					console.log(this)
-				})
+				var self = this;
+				playersSelected = [];
+				playerHtmls = this.divObj.find('.selected');
+
+				for (var i=0;i<playerHtmls.length;i++) {
+					playerHtmls[i] = jQuery(playerHtmls[i]);
+					playersSelected.push(self.players[playerHtmls[i].attr('playerId')])
+				}
+				return playersSelected;
+			},
+			_organizeTeamRandom: function(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer) {
+				teams = {}
+				for (var i = 1;i < NumberOfTeams;i++){
+					teams[i] = [];
+					 for (var x = 0; x < NumberOfPlayersInEachTeam; x++) {
+					 	playerIndexRand = Math.floor((Math.random() * listOfSelectedPlayer.length) + 1)-1;
+					 	teams[i].push(listOfSelectedPlayer[playerIndexRand]);
+					 	listOfSelectedPlayer.splice(playerIndexRand, 1);					 	
+					 }
+				}
+				teams[i++] = listOfSelectedPlayer
+				return teams
+			},
+			_organizeTeamRanks: function(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer) {
+				listOfSelectedPlayer = this.sortPlayers(listOfSelectedPlayer);
+				numberOfRanks = (listOfSelectedPlayer.length / NumberOfTeams);
+				numberOfPlayerinRank =  (listOfSelectedPlayer.length / NumberOfPlayersInEachTeam);
+				ranks = []
+				for (var i = 0;i<numberOfRanks;i++) {
+					ranks[i] = listOfSelectedPlayer.splice(0,numberOfPlayerinRank)
+				} 
+				teams = []
+				console.log(ranks)
+				for (var i = 0;i < NumberOfTeams; i++) {
+					teams[i] = []
+					for (var x = 0;x < ranks.length; x++) {
+						rand = Math.floor((Math.random() * ranks.length) + 1)-1;
+						teams[i].push(ranks[x].splice(rand, 1)[0])
+					}
+				}
+				console.log(teams)
+				return teams
 			},
 			_calculateTeams :function (NumberOfTeams,NumberOfPlayersInEachTeam) {
-
 				listOfSelectedPlayer = this._getSelectedPlayers();
-
+				//teams = this._organizeTeamRandom(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
+				//teams = this._organizeTeamRanks(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
+				
+				this.printTeams(teams);
+			},
+			printTeams : function(playerListByTeam) {
+				console.log(playerListByTeam[i])
+				for (i in playerListByTeam) {
+					console.log('team :'+i)
+					for (player in playerListByTeam[i]) {
+						console.log('player : '+playerListByTeam[i][player].name + '\n')
+					}
+				}
 			}
-
 
 
 
