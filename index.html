@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="jquery-1.7.2.min.js"></script>
+	<link href="style.css" rel="stylesheet">
+	<script type='text/javascript' src='playerlist.js'></script>
+	<script type='text/javascript'>
+		playersMixer = function(divId) {
+			this.players = this.getPlayers();
+			this.divObj = jQuery('#'+divId);
+			this.init();
+		}
+		playersMixer.prototype = {
+			init : function() {
+				this._initEvents();
+				this.createPlayerHtml();
+			},
+			_initEvents :function() {
+				var self = this
+				jQuery('#params').bind('submit',function() {
+					self._onSubmit(this);
+				});
+			},
+			_onSubmit : function(e) {
+				var self = this;
+				obj = jQuery(e);
+				NumberOfTeams = obj.find('#number_of_teams').val()
+				NumberOfPlayersInEachTeam = obj.find('#number_of_player').val()
+				playerNeeded = parseInt(NumberOfTeams) * parseInt(NumberOfPlayersInEachTeam);
+				if (playerNeeded == self._getNumberOfSelectedPlayers()) {
+					self._calculateTeams(NumberOfTeams,NumberOfPlayersInEachTeam);
+				} else {
+					self._errorTrigger('you must have :'+playerNeeded+' in total but you have :' + self._getNumberOfSelectedPlayers());
+				}
+				return false;
+			},
+			_errorTrigger : function(msg) {
+				console.log('error : '+msg)
+			},
+			getPlayers :function() {
+				//can be either json call or static var
+				return players
+			},
+			playerTemplate : function() {
+				n = jQuery('<span></span>').addClass('playerName')
+				t = jQuery('<img>').addClass('playerImage')
+				p = jQuery('<p></p>').addClass('player warp').append(n).append(t)
+				e = jQuery('<div></div>').addClass('players box').append(p)
+				return e
+			},
+			createPlayerHtml :function() {
+				var self = this
+				//create html for each player
+				for (i in this.players) {
+					d = this.players[i];
+					playerTemplate = this.playerTemplate()
+					playerTemplate.attr('playerId',i)
+					playerTemplate.find('.playerName').html(d.name)
+					playerTemplate.find('.playerImage').attr('src',d.picture)
+					playerTemplate.bind('click',function() {
+						self.markPlayer(this);
+					})
+					this.divObj.append(playerTemplate)
+				}
+			},
+			markPlayer:function(e) {
+				obj = jQuery(e)
+				console.log(obj.attr('class'))
+				if (obj.hasClass('selected')) {
+					this._unselectPlayer(obj)
+				} else {
+					this._selectPlayer(obj)
+				}
+			},
+			_selectPlayer :function(e) {
+				e.addClass('selected');
+			},
+			_unselectPlayer :function(e) {
+				e.removeClass('selected');
+			},
+			_getNumberOfSelectedPlayers : function() {
+				return parseInt(this.divObj.find('.selected').length)
+			},
+			_getSelectedPlayers: function() {
+				jQuery.each(this.divObj.find('.selected'),function() {
+					console.log(this)
+				})
+			},
+			_calculateTeams :function (NumberOfTeams,NumberOfPlayersInEachTeam) {
+
+				listOfSelectedPlayer = this._getSelectedPlayers();
+
+			}
+
+
+
+
+		};
+		jQuery(document).ready(function() {
+			(function (){
+				(new playersMixer('players'))
+			})();
+		})
+	</script>
+</head>
+<body>
+	<div id='players'>
+
+	</div>
+	<div>
+		<form id='params' onsubmit="return false;">
+		<input type='text' id='number_of_teams' placeholder='number of teams'>
+		<br>
+		<input type='text' id='number_of_player' placeholder='number of player'>
+		<br>
+		<input type='submit' value='get Teams' id='calculate_teams'>
+		</form>
+	</div>
+	<div id='res'>
+
+	</div>
+</body>
+</html>

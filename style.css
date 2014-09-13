@@ -1,0 +1,35 @@
+body {
+
+}
+#players {
+	width:80%;
+	margin:auto;
+	border:1px solid #c3c3c3;
+	padding:1%;
+	height:100%;
+	overflow:auto;
+}
+#players .playerImage {
+	width:35px;
+	float:right;
+}
+#players .box {
+	border:1px solid #c3c3c3;
+	margin:1%;
+	padding:2px;
+	float:right;
+}
+#players .box.selected {
+	border:1px solid red;
+}
+
+#players p {
+	height: 100%;
+	min-width: 45px;
+	overflow: auto;
+	margin: 0px;
+	padding: 3px;
+}
+#players .playerName {
+	display:block;
+}
