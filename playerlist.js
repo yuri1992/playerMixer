@@ -4,108 +4,108 @@ var players =
 					id:1,
 					name:'Ofek Pahima',
 					skill:05,
-					picture:'football.jpg'
+					picture:'ofekpahima.jpg'
 				},
 				{
 					id:2,
 					name:'Dan Bendror',
 					skill:65,
-					picture:'football.jpg'
+					picture:'dandeb.jpg'
 				},
 				{
 					id:3,
 					name:'Beni RedHair',
 					skill:55,
-					picture:'football.jpg'
+					picture:'benibarki.jpg'
 				},
 				{
 					id:4,
 					name:'Benzi Cohen',
 					skill:72,
-					picture:'football.jpg'
+					picture:'bencohen.jpg'
 				},
 				{
 					id:5,
 					name:'Gal Levi',
 					skill:85,
-					picture:'football.jpg'
+					picture:'gallevi.jpg'
 				},
 				{
 					id:6,
 					name:'Ran Kapitolnik',
 					skill:66,
-					picture:'football.jpg'
+					picture:'ranka.jpg'
 				},
 				{
 					id:7,
 					name:'Tal Baril',
 					skill:70,
-					picture:'football.jpg'
+					picture:'talbaril.jpg'
 				},
 				{
 					id:8,
 					name:'Yaniv Gerbi',
 					skill:81,
-					picture:'football.jpg'
+					picture:'yanivgerbi.jpg'
 				},
 				{
 					id:9,
 					name:'Kfir Ori',
 					skill:74,
-					picture:'football.jpg'
+					picture:'orikfir.jpg'
 				},
 				{
 					id:10,
 					name:'Saar Bergerbest',
 					skill:88,
-					picture:'football.jpg'
+					picture:'saarber.jpg'
 				},
 				{
 					id:11,
 					name:'Omer Wienberg',
 					skill:66,
-					picture:'football.jpg'
+					picture:'omerwien.jpg'
 				},
 				{
 					id:12,
 					name:'Sagi Barzili',
 					skill:90,
-					picture:'football.jpg'
+					picture:'sagibar.jpg'
 				},
 				{
 					id:13,
 					name:'Shahaf Artzi',
 					skill:77,
-					picture:'football.jpg'
+					picture:'artzi.jpg'
 				},
 				{
 					id:14,
 					name:'Tomer Mizrachi',
 					skill:60,
-					picture:'football.jpg'
+					picture:'tomermizrachi.jpg'
 				},
 				{
 					id:15,
 					name:'Kinan Ben Shabat',
 					skill:70,
-					picture:'football.jpg'
+					picture:'keynanbenshabat.jpg'
 				},
 				{
 					id:16,
 					name:'Ofir Chen',
 					skill:82,
-					picture:'football.jpg'
+					picture:'ofirchen.jpg'
 				},
 				{
 					id:17,
 					name:'Rafi Fadlon',
 					skill:52,
-					picture:'football.jpg'
+					picture:'rafifadlon.jpg'
 				},
 				{
 					id:18,
 					name:'Yuri Ritvin',
 					skill:80,
-					picture:'football.jpg'
+					picture:'yuriritvin.jpg'
 				}
 			];

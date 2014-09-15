@@ -1,13 +1,18 @@
 body {
-
+	background-image: url('system/grass1.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 }
 #players {
 	width:80%;
 	margin:auto;
-	border:1px solid #c3c3c3;
+	
 	padding:1%;
 	height:100%;
 	overflow:auto;
+	margin-bottom: 35%;
+	border: 1px solid #fff;
+	background: rgba(136, 136, 136, 0.69);
 }
 #players .playerImage {
 	width: 60px;
@@ -20,13 +25,13 @@ body {
 	text-align: center;
 }
 #players .box {
-	border:1px solid #c3c3c3;
+	border:2px solid #c3c3c3;
 	margin:1%;
 	padding:2px;
 	float:right;
 }
 #players .box.selected {
-	border:1px solid red;
+	border:2px solid red;
 }
 
 #players p {
@@ -36,6 +41,104 @@ body {
 	margin: 0px;
 	padding: 3px;
 }
+#players p {
+	height: 80px;
+	width: 75px;
+	overflow: hidden;
+	margin: 0px;
+	padding: 3px;
+}
 #players .playerName {
 	display:block;
+}
+.warp_params {
+	position: fixed;
+	bottom: 0px;
+	border-top: 1px solid #c4c4c4;
+	width: 100%;
+	padding: 2%;
+	margin: 0;
+	left: 0;
+	right: 0;
+	text-align: center;
+	height: 7%;
+	color: #000;
+	font-size: 20px;
+	background: rgba(136, 136, 136, 0.69);
+}
+
+.warp_params input[type=text]{
+	height: 25%;
+	width: 23%;
+	font-size: 24px;
+	color: #000;
+	padding: 1%;
+	text-align: center;
+	float: right;
+}
+.float_left {
+	float:left;
+}
+.float_left.left {
+	width:77%;
+}
+.flaot_left .right {
+	width:20%;
+}
+.float_left p{
+	margin: auto;
+	margin: 0;
+	/* margin-bottom: 5px; */
+	float: left;
+	margin-right: 7%;
+	/* padding: 0px 5px; */
+	width: 40%;
+}
+.float_left p label{
+	float: left;
+	word-warp:break-word;
+}
+
+.float_left.right div{
+	margin-top: 25%;
+}
+.float_left #calculate_teams {
+	font-size: 1.1em;
+}
+
+.results .caption {
+	overflow: auto;
+}
+.results .caption > span{
+	display: block;
+	clear: both;
+}
+.results p {
+	text-align:center;
+}
+.results .caption img {
+	width:90%;
+	height:90%;
+	margin:auto;
+}
+.results .playerImage {
+	width: 60px;
+	/* float: right; */
+	height: 60px;
+	display: block;
+	margin: auto;
+}
+.results .playerName {
+	text-align: center;
+}
+.results .box {
+	
+	margin:1%;
+	padding:2px;
+	float:right;
+	width: 45%;
+}
+.teams .fancybox-skin {
+	background:url('system/champion.jpg');
+	color:#fff;
 }

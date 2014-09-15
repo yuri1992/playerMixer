@@ -3,8 +3,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<script src="jquery-1.7.2.min.js"></script>
 	<link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+    <script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>		
 	<script type='text/javascript' src='playerlist.js'></script>
 	<script type='text/javascript'>
 		playersMixer = function(divId) {
@@ -30,14 +33,26 @@
 				NumberOfPlayersInEachTeam = obj.find('#number_of_player').val()
 				playerNeeded = parseInt(NumberOfTeams) * parseInt(NumberOfPlayersInEachTeam);
 				if (playerNeeded == self._getNumberOfSelectedPlayers()) {
-					self._calculateTeams(NumberOfTeams,NumberOfPlayersInEachTeam);
+					self._onSubmitSuccess(NumberOfTeams,NumberOfPlayersInEachTeam);
 				} else {
 					self._errorTrigger('you must have :'+playerNeeded+' in total but you have :' + self._getNumberOfSelectedPlayers());
 				}
 				return false;
 			},
+			_onSubmitSuccess: function(NumberOfTeams,NumberOfPlayersInEachTeam) {
+				var self = this
+				var html = jQuery('<div></div>').addClass('choose')
+				html.append(jQuery('<input>').attr('type','submit').attr('value','Random').click(function() {
+								self._calculateTeams(NumberOfTeams,NumberOfPlayersInEachTeam,'rand')
+							}),jQuery('<input>').attr('type','submit').attr('value','Rank').click(function() {
+								self._calculateTeams(NumberOfTeams,NumberOfPlayersInEachTeam,'rank')
+							}));
+				jQuery.fancybox(html,{
+					wrapCSS : 'choose-inputs'
+    			});
+			},
 			_errorTrigger : function(msg) {
-				console.log('error : '+msg)
+				jQuery.fancybox(jQuery('<div></div>').append(msg),{});
 			},
 			getPlayers :function() {
 				//can be either json call or static var
@@ -46,19 +61,23 @@
 			playerTemplate : function() {
 				n = jQuery('<span></span>').addClass('playerName')
 				t = jQuery('<img>').addClass('playerImage')
-				p = jQuery('<p></p>').addClass('player warp').append(n).append(t)
+				p = jQuery('<p></p>').addClass('player warp').append(t).append(n)
 				e = jQuery('<div></div>').addClass('players box').append(p)
 				return e
+			},
+			fillPlayerTemplate : function(d) {
+				playerTemplate = this.playerTemplate()
+				playerTemplate.attr('playerId',i)
+				playerTemplate.find('.playerName').html(d.name)
+				playerTemplate.find('.playerImage').attr('src','images\\'+d.picture)
+				return playerTemplate;	
 			},
 			createPlayerHtml :function() {
 				var self = this
 				//create html for each player
 				for (i in this.players) {
 					d = this.players[i];
-					playerTemplate = this.playerTemplate()
-					playerTemplate.attr('playerId',i)
-					playerTemplate.find('.playerName').html(d.name)
-					playerTemplate.find('.playerImage').attr('src',d.picture)
+					playerTemplate = this.fillPlayerTemplate(d);
 					playerTemplate.bind('click',function() {
 						self.markPlayer(this);
 					})
@@ -122,39 +141,50 @@
 			},
 			_organizeTeamRanks: function(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer) {
 				listOfSelectedPlayer = this.sortPlayers(listOfSelectedPlayer);
-				numberOfRanks = (listOfSelectedPlayer.length / NumberOfTeams);
-				numberOfPlayerinRank =  (listOfSelectedPlayer.length / NumberOfPlayersInEachTeam);
-				ranks = []
-				for (var i = 0;i<numberOfRanks;i++) {
-					ranks[i] = listOfSelectedPlayer.splice(0,numberOfPlayerinRank)
+				numberOfRanks = parseInt(NumberOfPlayersInEachTeam);
+				numberOfPlayerinRank =  parseInt(NumberOfTeams);
+				ranks = {}
+
+				for (var i = 0; i<numberOfRanks; i++) {
+					ranks[i] = listOfSelectedPlayer.slice(0,numberOfPlayerinRank)
+					listOfSelectedPlayer.splice(0,numberOfPlayerinRank)
 				} 
-				teams = []
-				console.log(ranks)
+				teams = {}
 				for (var i = 0;i < NumberOfTeams; i++) {
 					teams[i] = []
-					for (var x = 0;x < ranks.length; x++) {
+					for (var x = 0;x < numberOfRanks; x++) {
 						rand = Math.floor((Math.random() * ranks.length) + 1)-1;
+						console.log(ranks[x].slice(rand, 1)[0])
 						teams[i].push(ranks[x].splice(rand, 1)[0])
 					}
 				}
 				console.log(teams)
 				return teams
 			},
-			_calculateTeams :function (NumberOfTeams,NumberOfPlayersInEachTeam) {
+			_calculateTeams :function (NumberOfTeams,NumberOfPlayersInEachTeam,type) {
 				listOfSelectedPlayer = this._getSelectedPlayers();
-				//teams = this._organizeTeamRandom(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
-				//teams = this._organizeTeamRanks(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
-				
+				if (type=='rand') {
+					teams = this._organizeTeamRandom(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
+				} else {
+					teams = this._organizeTeamRanks(NumberOfTeams,NumberOfPlayersInEachTeam,listOfSelectedPlayer);
+				}
 				this.printTeams(teams);
 			},
 			printTeams : function(playerListByTeam) {
-				console.log(playerListByTeam[i])
+				html = jQuery('<div></div>').addClass('results')
 				for (i in playerListByTeam) {
-					console.log('team :'+i)
+					team = jQuery('<div></div>').addClass('caption').append('<span>Team '+i+'</span>')
 					for (player in playerListByTeam[i]) {
-						console.log('player : '+playerListByTeam[i][player].name + '\n')
+						d = playerListByTeam[i][player]
+						playerTemplate = this.fillPlayerTemplate(d);
+						team.append(playerTemplate)
 					}
+					html.append(team)
 				}
+
+				return jQuery.fancybox(html,{
+					wrapCSS : 'teams'
+    			});
 			}
 
 
@@ -171,13 +201,24 @@
 	<div id='players'>
 
 	</div>
-	<div>
+	<div class='warp_params'>
 		<form id='params' onsubmit="return false;">
-		<input type='text' id='number_of_teams' placeholder='number of teams'>
-		<br>
-		<input type='text' id='number_of_player' placeholder='number of player'>
-		<br>
-		<input type='submit' value='get Teams' id='calculate_teams'>
+			<div class='float_left left'>
+				<p>
+					<label for='number_of_teams'>
+						Teams : 
+					</label> <input type='text' id='number_of_teams'  maxlength="2">
+				</p><p>
+					<label for='number_of_player'>
+						Player :
+					</label> <input type='text' id='number_of_player'  maxlength="2">
+				</p>
+			</div>
+			<div class='float_left right'>
+				
+					<input type='submit' value='Play' id='calculate_teams'>
+				
+			</div>
 		</form>
 	</div>
 	<div id='res'>
