@@ -19,6 +19,7 @@
 			init : function() {
 				this._initEvents();
 				this.createPlayerHtml();
+				this.addPlayer('DAVID',23,'images/yuriritvin.jpg')
 			},
 			_initEvents :function() {
 				var self = this
@@ -54,6 +55,17 @@
 			_errorTrigger : function(msg) {
 				jQuery.fancybox(jQuery('<div></div>').append(msg),{});
 			},
+			addPlayer : function(name,skill,picture) {
+				// adding player to this.players
+				lastId = this.players[this.players.length-1]
+				player = {}
+				player['id']=lastId.id+1;
+				player['name']=name;
+				player['skill']=skill;
+				player['picture']=picture;
+				this.players.push(player);
+				this.createPlayerHtml();
+			},
 			getPlayers :function() {
 				//can be either json call or static var
 				return players
@@ -75,6 +87,7 @@
 			createPlayerHtml :function() {
 				var self = this
 				//create html for each player
+				this.divObj.html('')
 				for (i in this.players) {
 					d = this.players[i];
 					playerTemplate = this.fillPlayerTemplate(d);
