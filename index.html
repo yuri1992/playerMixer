@@ -10,6 +10,7 @@
     <script type="text/javascript" src="fancybox/jquery.fancybox.pack.js"></script>		
 	<script type='text/javascript' src='playerlist.js'></script>
 	<script type='text/javascript'>
+		// must be on the page #addplayerformtemplate div
 		playersMixer = function(divId) {
 			this.players = this.getPlayers();
 			this.divObj = jQuery('#'+divId);
@@ -19,13 +20,42 @@
 			init : function() {
 				this._initEvents();
 				this.createPlayerHtml();
-				this.addPlayer('DAVID',23,'images/yuriritvin.jpg')
 			},
 			_initEvents :function() {
 				var self = this
 				jQuery('#params').bind('submit',function() {
 					self._onSubmit(this);
 				});
+				jQuery('#addplayerform').bind('submit',function() {
+					var e = jQuery(this)
+					if (e.find('#name').val().length == 0) {
+						e.find('#name').css('border','1px solid red')
+						return false
+					} else {
+						name = e.find('#name').val()
+					}
+
+					if (e.find('#skill').val().length == 0) {
+						e.find('#skill').css('border','1px solid red')
+						return false
+					} else {
+						skill = e.find('#skill').val()
+					}
+
+					if (e.find('#picture').val().length > 0) {
+						picture = e.find('#picture').val()
+					} else {
+						picture = '765-default-avatar.png'
+					}
+
+					self.addPlayer(name,skill,picture)
+					e.find('#picture').val('')
+					e.find('#name').val('')
+					e.find('#skill').val('')
+
+					jQuery.fancybox.close()
+					return false;
+				})
 			},
 			_onSubmit : function(e) {
 				var self = this;
@@ -96,6 +126,18 @@
 					})
 					this.divObj.append(playerTemplate)
 				}
+				this.divObj.append(this.createPlayerFormHtml())
+			},
+			createPlayerFormHtml : function() {
+				var self = this
+				return jQuery("<div><p></p></div>").addClass('addPlayer players box').click(function() {
+					self.openAddPlayerBox();
+				})
+			},
+			openAddPlayerBox : function() {
+				jQuery.fancybox(jQuery('#addplayerformtemplate'),{
+					wrapCSS : 'addplayerlightbox'
+    			});
 			},
 			markPlayer:function(e) {
 				obj = jQuery(e)
@@ -234,8 +276,24 @@
 			</div>
 		</form>
 	</div>
-	<div id='res'>
-
+	<div id='addplayerformtemplate' style='display:none;'>
+			<form id='addplayerform' action='' method='post'>
+				<p>
+					<label for='name'>Player Name:</label>
+					<input type='text' name='name' id='name'>
+				</p>
+				<p>
+					<label for='skill'>Skill:</label>
+					<input type='text' name='skill' id='skill'>
+				</p>
+				<p>
+					<label for='picture'>Picture Url:</label>
+					<input type='text' name='picture' id='picture'>
+				</p>
+				<p style='text-align: center;'>
+					<input type='submit' value='Add Player'>
+				</p>
+			</form>
 	</div>
 </body>
 </html>
