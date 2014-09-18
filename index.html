@@ -153,8 +153,7 @@
 				for (var i = 0;i < NumberOfTeams; i++) {
 					teams[i] = []
 					for (var x = 0;x < numberOfRanks; x++) {
-						rand = Math.floor((Math.random() * ranks.length) + 1)-1;
-						console.log(ranks[x].slice(rand, 1)[0])
+						rand = Math.floor((Math.random() * ranks[i].length));
 						teams[i].push(ranks[x].splice(rand, 1)[0])
 					}
 				}
@@ -183,7 +182,12 @@
 				}
 
 				return jQuery.fancybox(html,{
-					wrapCSS : 'teams'
+					wrapCSS : 'teams',
+					helpers : {
+					  overlay : {
+					    locked:true
+					  }
+					}
     			});
 			}
 

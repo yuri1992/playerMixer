@@ -106,9 +106,14 @@ body {
 	font-size: 1.1em;
 }
 
+.results {
+	overflow: auto;
+	height: 100%;
+}
 .results .caption {
 	overflow: auto;
 }
+
 .results .caption > span{
 	display: block;
 	clear: both;
@@ -141,4 +146,15 @@ body {
 .teams .fancybox-skin {
 	background:url('system/champion.jpg');
 	color:#fff;
+}
+
+@media all and (max-width: 380px) and (min-width: 300px) {
+	#players p {
+		height: 85px;
+		width: 96px;
+		overflow: hidden;
+		margin: 0px;
+		padding: 3px;
+	}
+
 }

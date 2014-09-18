@@ -107,5 +107,47 @@ var players =
 					name:'Yuri Ritvin',
 					skill:80,
 					picture:'yuriritvin.jpg'
+				},
+				{
+					id:19,
+					name:'Tomer Krispin',
+					skill:80,
+					picture:'tomerkrispin.jpg'
+				},
+				{
+					id:20,
+					name:'Itay Maor',
+					skill:80,
+					picture:'itaymaor.jpg'
+				},
+				{
+					id:21,
+					name:'Tomer Zikorel',
+					skill:80,
+					picture:'tomerzikorel.jpg'
+				},
+				{
+					id:22,
+					name:'Itamar Zach',
+					skill:80,
+					picture:'itamarzach.jpg'
+				},
+				{
+					id:23,
+					name:'Adir Schnider',
+					skill:80,
+					picture:'adirschnider.jpg'
+				},
+				{
+					id:24,
+					name:'Zvika Hadad',
+					skill:80,
+					picture:'zvikahadad.jpg'
+				},
+				{
+					id:25,
+					name:'Ron Wiensenbolim',
+					skill:80,
+					picture:'ronwiensenbolim.jpg'
 				}
 			];
