@@ -111,37 +111,37 @@ var players =
 				{
 					id:19,
 					name:'Tomer Krispin',
-					skill:80,
+					skill:31,
 					picture:'tomerkrispin.jpg'
 				},
 				{
 					id:20,
 					name:'Itay Maor',
-					skill:80,
+					skill:6,
 					picture:'itaymaor.jpg'
 				},
 				{
 					id:21,
 					name:'Tomer Zikorel',
-					skill:80,
+					skill:6,
 					picture:'tomerzikorel.jpg'
 				},
 				{
 					id:22,
 					name:'Itamar Zach',
-					skill:80,
+					skill:31,
 					picture:'itamarzach.jpg'
 				},
 				{
 					id:23,
 					name:'Adir Schnider',
-					skill:80,
+					skill:6,
 					picture:'adirschnider.jpg'
 				},
 				{
 					id:24,
 					name:'Zvika Hadad',
-					skill:80,
+					skill:78,
 					picture:'zvikahadad.jpg'
 				},
 				{
