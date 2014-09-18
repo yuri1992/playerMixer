@@ -158,3 +158,16 @@ body {
 	}
 
 }
+
+.addPlayer {
+	background:url('system/glyphicons_432_plus.png');
+	background-repeat: no-repeat;
+	background-position: center;
+}
+#addplayerform label {
+	display:block;
+}
+
+#addplayerform input[type=submit] {
+	margin:auto;
+}
